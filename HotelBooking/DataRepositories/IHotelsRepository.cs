@@ -4,8 +4,10 @@ namespace HotelBooking.DataRepositories
 {
 	public interface IHotelsRepository
 	{
-		Task<Guid> Create(HotelDetails info);
+		Task<Guid> CreateAsync(HotelDetails details);
 
-		Task<HotelInfo> Get(Guid id);
+		Task<HotelInfo> GetAsync(Guid id);
+
+		Task<List<HotelInfo>> GetManyAsync(Func<HotelInfo, bool> searchFilter = null);
 	}
 }

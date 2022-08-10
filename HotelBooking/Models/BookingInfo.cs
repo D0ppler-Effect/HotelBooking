@@ -2,8 +2,14 @@
 {
 	public class BookingInfo
 	{
-		public Guid Id { get; set; }
+		public BookingInfo(BookingDetails details)
+		{
+			Id = Guid.NewGuid();
+			Details = details;
+		}
 
-		public BookingDetails Details { get; set; }
+		public Guid Id { get; }
+
+		public BookingDetails Details { get; }
 	}
 }

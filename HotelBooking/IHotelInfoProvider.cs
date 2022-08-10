@@ -2,7 +2,7 @@
 
 namespace HotelBooking
 {
-	public interface IHotelProvider
+	public interface IHotelInfoProvider
 	{
 		Task<IEnumerable<HotelInfo>> SearchHotelsAsync(string searchText);
 

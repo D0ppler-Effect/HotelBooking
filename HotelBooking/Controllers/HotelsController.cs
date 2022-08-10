@@ -50,7 +50,7 @@ namespace HotelBooking.Controllers
 			}
 		}
 
-		private readonly IHotelProvider _hotelProvider;
+		private readonly IHotelInfoProvider _hotelProvider;
 
 		private readonly ILogger<HotelsController> _logger;
 	}
