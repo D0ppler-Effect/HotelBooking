@@ -10,20 +10,25 @@ namespace HotelBooking.DataRepositories.LiteDB
 			_collection = database.GetCollection<BookingInfo>(CollectionName);
 		}
 
-		public async Task<Guid> CreateAsync(BookingDetails details)
+		public async Task CreateAsync(BookingInfo info)
 		{
-			var newBookingInfo = new BookingInfo(details);
+			_collection.Insert(info);
 
-			_collection.Insert(newBookingInfo);
-
-			return await Task.FromResult(newBookingInfo.Id);
+			await Task.CompletedTask;
 		}
 
-		public async Task<BookingInfo> GetAsync(Guid id)
+		public async Task<BookingInfo> GetAsync(Guid bookingId)
 		{
-			var bookingInfo = _collection.Find(b => b.Id == id).Single();
+			var bookingInfo = _collection.Find(b => b.Id == bookingId).Single();
 
 			return await Task.FromResult(bookingInfo);
+		}
+
+		public async Task DeleteAsync(Guid bookingId)
+		{
+			_collection.DeleteMany(b => b.Id == bookingId);
+
+			await Task.CompletedTask;
 		}
 		
 		private const string CollectionName = "bookings";

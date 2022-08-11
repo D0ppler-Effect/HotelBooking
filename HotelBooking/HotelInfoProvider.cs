@@ -31,12 +31,14 @@ namespace HotelBooking
 					searchResults = await _hotelSearchEngine.SearchHotelsAsync(searchResults, searchRequest.SearchText);
 				}
 			}
+
 			// if no coordinates provided, we'll try to use only text-based search
 			else if(!string.IsNullOrEmpty(searchRequest.SearchText))
 			{
-				var hotels = await _hotelsRepository.GetAsync(int.MaxValue);
+				var hotels = await _hotelsRepository.GetAsync(int.MaxValue); // definitely a weak spot. TODO: reimagine text-based searching
 				searchResults = await _hotelSearchEngine.SearchHotelsAsync(hotels, searchRequest.SearchText);
 			}
+
 			// ok, no filters provided, we'll return all we've got
 			else
 			{
@@ -50,7 +52,7 @@ namespace HotelBooking
 		{
 			var queryResults = await _hotelsRepository.GetAsync(1,h => h.Id == hotelId);
 
-			return queryResults.Single();
+			return queryResults.SingleOrDefault();
 		}
 		
 		private readonly IHotelsRepository _hotelsRepository;

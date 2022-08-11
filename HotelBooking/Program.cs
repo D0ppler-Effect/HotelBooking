@@ -13,7 +13,16 @@ namespace HotelBooking
 
 			builder.Services.AddControllers();
 
-			// builder.Services.AddSingleton<IHotelsRepository, LiteDbHotelsRepository>();
+			builder.Services.AddSingleton<IHotelsRepository, LiteDbHotelsRepository>();
+			builder.Services.AddSingleton<IBookingsRepository, LiteDbBookingsRepository>();
+
+			builder.Services.AddTransient<IHotelInfoProvider, HotelInfoProvider>();
+			builder.Services.AddTransient<IBookingProvider, BookingProvider>();
+
+			builder.Services.AddTransient<IHotelTextSearchEngine, SimpleHotelTextSearchEngine>();
+
+			builder.Services.AddTransient<IBookingReservationGateway, MockBookingReservationGateway>();
+			builder.Services.AddTransient<IHotelFindRequestFactory>(x=> new HotelFindRequestFactory(0, 50)); // TODO take from config
 
 			var app = builder.Build();
 
