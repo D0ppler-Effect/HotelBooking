@@ -19,11 +19,12 @@ namespace HotelBooking
 			// start with coordinates to narrow search field
 			if (searchRequest.HasCoordinates)
 			{
-				searchResults = await _hotelsRepository.GetAsync(
-					searchRequest.MaxSearchResults,
-					h => h.Details.Coordinates.IsWithinDistance(
+				var hotels = await _hotelsRepository.GetAsync(int.MaxValue);
+
+				searchResults = hotels.Where(h => h.Details.Coordinates.IsWithinDistance(
 						searchRequest.CenterPoint,
-						searchRequest.SearchRadius));
+						searchRequest.SearchRadius))
+					.ToList();
 
 				// add text search criteria
 				if (!string.IsNullOrEmpty(searchRequest.SearchText))
