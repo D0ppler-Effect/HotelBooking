@@ -1,3 +1,6 @@
+using HotelBooking.DataRepositories;
+using HotelBooking.DataRepositories.LiteDB;
+
 namespace HotelBooking
 {
 	public class Program
@@ -9,6 +12,8 @@ namespace HotelBooking
 			// Add services to the container.
 
 			builder.Services.AddControllers();
+
+			// builder.Services.AddSingleton<IHotelsRepository, LiteDbHotelsRepository>();
 
 			var app = builder.Build();
 

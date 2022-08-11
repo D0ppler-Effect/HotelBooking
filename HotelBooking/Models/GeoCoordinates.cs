@@ -2,8 +2,14 @@
 {
 	public class GeoCoordinates
 	{
-		public double Latitude { get; set; }
+		public GeoCoordinates(double latitude, double longitude)
+		{
+			Latitude = latitude;
+			Longitude = longitude;
+		}
 
-		public double Longitude { get; set; }
+		public double Latitude { get; }
+
+		public double Longitude { get; }
 	}
 }
