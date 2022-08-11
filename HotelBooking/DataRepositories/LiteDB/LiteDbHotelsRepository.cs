@@ -1,4 +1,5 @@
-﻿using HotelBooking.Models;
+﻿using HotelBooking.Extensions;
+using HotelBooking.Models;
 using LiteDB;
 
 namespace HotelBooking.DataRepositories.LiteDB
@@ -11,20 +12,20 @@ namespace HotelBooking.DataRepositories.LiteDB
 			_collection.EnsureIndex(h => h.Details.Name);
 		}
 
-		public async Task<Guid> CreateAsync(HotelDetails details)
+		public Task<Guid> CreateAsync(HotelDetails details)
 		{
 			var newHotelInfo = new HotelInfo(details);
 
 			_collection.Insert(newHotelInfo);
 
-			return await Task.FromResult(newHotelInfo.Id);
+			return Task.FromResult(newHotelInfo.Id);
 		}
 
-		public async Task<List<HotelInfo>> GetAsync(int maxResults, Func<HotelInfo, bool> searchFilter = null)
+		public Task<List<HotelInfo>> GetAsync(int maxResults, Func<HotelInfo, bool> searchFilter = null)
 		{
 			if (searchFilter == null)
 			{
-				return await Task.FromResult(_collection.FindAll().Take(maxResults).ToList());
+				return Task.FromResult(_collection.FindAll().Take(maxResults).ToList());
 			}
 
 			var searchResults = _collection
@@ -32,10 +33,10 @@ namespace HotelBooking.DataRepositories.LiteDB
 				.Take(maxResults)
 				.ToList();
 
-			return await Task.FromResult(searchResults);
+			return Task.FromResult(searchResults);
 		}
 
-		public async Task<HotelInfo> GetHotelByIdAsync(Guid id)
+		public Task<HotelInfo> GetHotelByIdAsync(Guid id)
 		{
 			var searchResult = _collection
 				.Find(h => h.Id == id)
@@ -43,7 +44,16 @@ namespace HotelBooking.DataRepositories.LiteDB
 
 			var result = searchResult.SingleOrDefault();
 
-			return await Task.FromResult(result);
+			return Task.FromResult(result);
+		}
+
+		public Task<List<HotelInfo>> FindHotelsByCoordinatesAsync(GeoCoordinates centerPoint, double searchRadius)
+		{
+			var searchResult = _collection
+				.Find(h => h.Details.Coordinates.IsWithinDistance(centerPoint, searchRadius))
+				.ToList();
+
+			return Task.FromResult(searchResult);
 		}
 
 		private const string CollectionName = "hotels";

@@ -9,5 +9,7 @@ namespace HotelBooking.DataRepositories
 		Task<List<HotelInfo>> GetAsync(int maxResults, Func<HotelInfo, bool> searchFilter = null);
 
 		Task<HotelInfo> GetHotelByIdAsync(Guid id);
+
+		Task<List<HotelInfo>> FindHotelsByCoordinatesAsync(GeoCoordinates centerPoint, double searchRadius);
 	}
 }
