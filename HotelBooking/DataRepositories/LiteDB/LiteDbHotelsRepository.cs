@@ -21,19 +21,9 @@ namespace HotelBooking.DataRepositories.LiteDB
 			return Task.FromResult(newHotelInfo.Id);
 		}
 
-		public Task<List<HotelInfo>> GetAsync(int maxResults, Func<HotelInfo, bool> searchFilter = null)
+		public Task<List<HotelInfo>> GetAllAsync()
 		{
-			if (searchFilter == null)
-			{
-				return Task.FromResult(_collection.FindAll().Take(maxResults).ToList());
-			}
-
-			var searchResults = _collection
-				.Find(h => searchFilter(h))
-				.Take(maxResults)
-				.ToList();
-
-			return Task.FromResult(searchResults);
+			return Task.FromResult(_collection.FindAll().ToList());
 		}
 
 		public Task<HotelInfo> GetHotelByIdAsync(Guid id)
@@ -46,16 +36,7 @@ namespace HotelBooking.DataRepositories.LiteDB
 
 			return Task.FromResult(result);
 		}
-
-		public Task<List<HotelInfo>> FindHotelsByCoordinatesAsync(GeoCoordinates centerPoint, double searchRadius)
-		{
-			var searchResult = _collection
-				.Find(h => h.Details.Coordinates.IsWithinDistance(centerPoint, searchRadius))
-				.ToList();
-
-			return Task.FromResult(searchResult);
-		}
-
+		
 		private const string CollectionName = "hotels";
 
 		private readonly ILiteCollection<HotelInfo> _collection;
