@@ -35,6 +35,17 @@ namespace HotelBooking.DataRepositories.LiteDB
 			return await Task.FromResult(searchResults);
 		}
 
+		public async Task<HotelInfo> GetHotelByIdAsync(Guid id)
+		{
+			var searchResult = _collection
+				.Find(h => h.Id == id)
+				.ToList();
+
+			var result = searchResult.SingleOrDefault();
+
+			return await Task.FromResult(result);
+		}
+
 		private const string CollectionName = "hotels";
 
 		private readonly ILiteCollection<HotelInfo> _collection;

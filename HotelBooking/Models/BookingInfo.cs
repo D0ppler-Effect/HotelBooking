@@ -2,6 +2,10 @@
 {
 	public class BookingInfo
 	{
+		public BookingInfo()
+		{
+		}
+
 		public BookingInfo(BookingDetails details, int reservationNumber)
 		{
 			Id = Guid.NewGuid();
@@ -9,10 +13,10 @@
 			ReservationNumber = reservationNumber;
 		}
 
-		public Guid Id { get; }
+		public Guid Id { get; set; }
 
-		public int ReservationNumber { get; }
+		public int ReservationNumber { get; set; }
 
-		public BookingDetails Details { get; }
+		public BookingDetails Details { get; set; }
 	}
 }
