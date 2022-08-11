@@ -19,7 +19,7 @@ namespace HotelBooking
 			// start with coordinates to narrow search field
 			if (searchRequest.HasCoordinates)
 			{
-				var hotels = await _hotelsRepository.GetAsync(int.MaxValue);
+				var hotels = await _hotelsRepository.GetAsync(int.MaxValue); // definitely a weak spot. TODO: reimagine data searching
 
 				searchResults = hotels.Where(h => h.Details.Coordinates.IsWithinDistance(
 						searchRequest.CenterPoint,
