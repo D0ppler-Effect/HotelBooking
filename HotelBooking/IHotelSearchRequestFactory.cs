@@ -2,7 +2,7 @@
 
 namespace HotelBooking;
 
-public interface IHotelFindRequestFactory
+public interface IHotelSearchRequestFactory
 {
 	HotelFindRequest GetSearchRequest(
 		double? centerPointLatitude,

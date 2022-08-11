@@ -9,7 +9,7 @@ namespace HotelBooking.Controllers
 	{
 		public HotelsController(
 			IHotelInfoProvider hotelInfoProvider,
-			IHotelFindRequestFactory searchRequestFactory,
+			IHotelSearchRequestFactory searchRequestFactory,
 			ILogger<HotelsController> logger)
 		{
 			_hotelInfoProvider = hotelInfoProvider;
@@ -77,7 +77,7 @@ namespace HotelBooking.Controllers
 		
 		private readonly IHotelInfoProvider _hotelInfoProvider;
 
-		private readonly IHotelFindRequestFactory _hotelSearchRequestFactory;
+		private readonly IHotelSearchRequestFactory _hotelSearchRequestFactory;
 
 		private readonly ILogger<HotelsController> _logger;
 	}

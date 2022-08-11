@@ -2,9 +2,9 @@
 
 namespace HotelBooking
 {
-	public class HotelFindRequestFactory : IHotelFindRequestFactory
+	public class HotelSearchRequestFactory : IHotelSearchRequestFactory
 	{
-		public HotelFindRequestFactory(double searchDistance, int maxResults)
+		public HotelSearchRequestFactory(double searchDistance, int maxResults)
 		{
 			_searchDistance = searchDistance;
 			_maxResults = maxResults;

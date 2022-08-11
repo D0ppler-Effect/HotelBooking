@@ -6,6 +6,7 @@ using HotelBooking.Models;
 
 namespace HotelBooking.Tests
 {
+	[TestFixture]
 	public class HotelsRepositoryTests : LiteDatabaseTestsBase
 	{
 		[SetUp]
@@ -33,7 +34,6 @@ namespace HotelBooking.Tests
 			storedHotel.Details.Coordinates.Longitude.Should().Be(hotelDetails.Coordinates.Longitude);
 			storedHotel.Details.Coordinates.Latitude.Should().Be(hotelDetails.Coordinates.Latitude);
 		}
-		
 
 		private IHotelsRepository HotelsRepository { get; set; }
 	}

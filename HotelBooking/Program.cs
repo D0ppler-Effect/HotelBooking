@@ -24,8 +24,8 @@ namespace HotelBooking
 			builder.Services.AddTransient<IHotelTextSearchEngine, SimpleHotelTextSearchEngine>();
 			builder.Services.AddTransient<IBookingReservationGateway, MockBookingReservationGateway>();
 			builder.Services.AddSingleton<ILiteDatabase>(x => new LiteDatabase(settings.LocalDatabase.FileName));
-			builder.Services.AddTransient<IHotelFindRequestFactory>(x =>
-				new HotelFindRequestFactory(
+			builder.Services.AddTransient<IHotelSearchRequestFactory>(x =>
+				new HotelSearchRequestFactory(
 					settings.Application.HotelSearchDistance,
 					settings.Application.MaxSearchResults));
 
