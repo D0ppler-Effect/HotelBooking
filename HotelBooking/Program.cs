@@ -1,5 +1,6 @@
 using HotelBooking.DataRepositories;
 using HotelBooking.DataRepositories.LiteDB;
+using HotelBooking.Settings;
 
 namespace HotelBooking
 {
@@ -8,6 +9,8 @@ namespace HotelBooking
 		public static void Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
+
+			var applicationSettings = builder.Configuration.Get<AppSettings>();
 
 			// Add services to the container.
 
@@ -22,7 +25,9 @@ namespace HotelBooking
 			builder.Services.AddTransient<IHotelTextSearchEngine, SimpleHotelTextSearchEngine>();
 
 			builder.Services.AddTransient<IBookingReservationGateway, MockBookingReservationGateway>();
-			builder.Services.AddTransient<IHotelFindRequestFactory>(x=> new HotelFindRequestFactory(0, 50)); // TODO take from config
+			builder.Services.AddTransient<IHotelFindRequestFactory>(x=> new HotelFindRequestFactory(
+				applicationSettings.Application.HotelSearchDistance,
+				applicationSettings.Application.MaxSearchResults));
 
 			var app = builder.Build();
 
