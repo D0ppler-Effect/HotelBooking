@@ -7,5 +7,7 @@ namespace HotelBooking
 		Task<IEnumerable<HotelInfo>> FindHotelsAsync(HotelFindRequest searchRequest);
 
 		Task<HotelInfo> GetHotelDetailsAsync(Guid hotelId);
+
+		Task<Guid> AddHotelAsync(HotelDetails details);
 	}
 }

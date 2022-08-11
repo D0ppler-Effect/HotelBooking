@@ -24,9 +24,9 @@ namespace HotelBooking
 			var request = new HotelFindRequest
 			{
 				CenterPoint = centerPoint,
+				SearchRadius = _searchDistance,
 				SearchText = searchText,
-				MaxSearchResults = _maxResults,
-				SearchRadius = _searchDistance
+				MaxSearchResults = _maxResults
 			};
 
 			return request; 

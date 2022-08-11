@@ -55,7 +55,12 @@ namespace HotelBooking
 
 			return queryResults.SingleOrDefault();
 		}
-		
+
+		public async Task<Guid> AddHotelAsync(HotelDetails details)
+		{
+			return await _hotelsRepository.CreateAsync(details);
+		}
+
 		private readonly IHotelsRepository _hotelsRepository;
 
 		private readonly IHotelTextSearchEngine _hotelSearchEngine;

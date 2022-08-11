@@ -60,6 +60,20 @@ namespace HotelBooking.Controllers
 				return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
 			}
 		}
+
+		[HttpPost]
+		public async Task<ActionResult<Guid>> AddHotel(HotelDetails details)
+		{
+			try
+			{
+				return await _hotelInfoProvider.AddHotelAsync(details);
+			}
+			catch (Exception e)
+			{
+				_logger.LogError(e, "Failed to add hotel data");
+				return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+			}
+		}
 		
 		private readonly IHotelInfoProvider _hotelInfoProvider;
 
